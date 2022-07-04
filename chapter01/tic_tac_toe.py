@@ -92,11 +92,11 @@ class State:
             out = '| '
             for j in range(BOARD_COLS):
                 if self.data[i, j] == 1:
-                    token = '*'
+                    token = 'X'
                 elif self.data[i, j] == -1:
-                    token = 'x'
+                    token = 'O'
                 else:
-                    token = '0'
+                    token = ' '
                 out += token + ' | '
             print(out)
         print('-------------')
