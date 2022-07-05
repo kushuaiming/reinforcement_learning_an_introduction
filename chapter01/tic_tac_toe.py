@@ -201,12 +201,12 @@ class Player:
         return action
 
     def save_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'wb') as f:
-            pickle.dump(self.estimations, f)
+        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'wb') as file_object:
+            pickle.dump(self.estimations, file_object)
 
     def load_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'rb') as f:
-            self.estimations = pickle.load(f)
+        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'rb') as file_object:
+            self.estimations = pickle.load(file_object)
 
 class Judger:
     # @player1: the player who will move first, its chessman will be 1
