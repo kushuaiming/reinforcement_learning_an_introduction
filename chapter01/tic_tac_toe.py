@@ -201,42 +201,42 @@ class Player:
         return action
 
     def save_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'wb') as file_object:
+        with open('policy_%s.bin' % ('first_player' if self.symbol == 1 else 'second_player'), 'wb') as file_object:
             pickle.dump(self.estimations, file_object)
 
     def load_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'rb') as file_object:
+        with open('policy_%s.bin' % ('first_player' if self.symbol == 1 else 'second_player'), 'rb') as file_object:
             self.estimations = pickle.load(file_object)
 
 class Judger:
     # @player1: the player who will move first, its chessman will be 1
     # @player2: another player with a chessman -1
     def __init__(self, player1, player2):
-        self.p1 = player1
-        self.p2 = player2
+        self.player1 = player1
+        self.player2 = player2
         self.current_player = None
-        self.p1_symbol = 1
-        self.p2_symbol = -1
-        self.p1.set_symbol(self.p1_symbol)
-        self.p2.set_symbol(self.p2_symbol)
+        self.player1_symbol = 1
+        self.player2_symbol = -1
+        self.player1.set_symbol(self.player1_symbol)
+        self.player2.set_symbol(self.player2_symbol)
         self.current_state = State()
 
     def reset(self):
-        self.p1.reset()
-        self.p2.reset()
+        self.player1.reset()
+        self.player2.reset()
 
     def alternate(self):
         while True:
-            yield self.p1
-            yield self.p2
+            yield self.player1
+            yield self.player2
 
     # @print_state: if True, print each board during the game
     def play(self, print_state=False):
         alternator = self.alternate()
         self.reset()
         current_state = State()
-        self.p1.set_state(current_state)
-        self.p2.set_state(current_state)
+        self.player1.set_state(current_state)
+        self.player2.set_state(current_state)
         if print_state:
             current_state.print_state()
         while True:
@@ -244,8 +244,8 @@ class Judger:
             i, j, symbol = player.act()
             next_state_hash = current_state.next_state(i, j, symbol).hash()
             current_state, is_end = all_states[next_state_hash]
-            self.p1.set_state(current_state)
-            self.p2.set_state(current_state)
+            self.player1.set_state(current_state)
+            self.player2.set_state(current_state)
             if print_state:
                 current_state.print_state()
             if is_end:
