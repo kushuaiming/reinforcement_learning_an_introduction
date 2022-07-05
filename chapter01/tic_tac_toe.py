@@ -9,6 +9,7 @@
 #######################################################################
 
 import numpy as np
+import os.path
 import pickle
 
 BOARD_ROWS = 3
@@ -282,6 +283,8 @@ class HumanPlayer:
 
 
 def train(epochs, print_every_n=500):
+    if os.path.isfile('policy_first_player.bin') and os.path.isfile('policy_second_player.bin'):
+        return
     player1 = Player(epsilon=0.01)
     player2 = Player(epsilon=0.01)
     judger = Judger(player1, player2)
