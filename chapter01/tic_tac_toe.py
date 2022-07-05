@@ -254,13 +254,13 @@ class Judger:
 
 # human interface
 # input a number to put a chessman
-# | q | w | e |
-# | a | s | d |
-# | z | x | c |
+# | 7 | 8 | 9 |
+# | 4 | 5 | 6 |
+# | 1 | 2 | 3 |
 class HumanPlayer:
     def __init__(self, **kwargs):
         self.symbol = None
-        self.keys = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
+        self.keys = ['7', '8', '9', '4', '5', '6', '1', '2', '3']
         self.state = None
 
     def reset(self):
