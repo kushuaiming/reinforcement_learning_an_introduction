@@ -20,7 +20,6 @@ B_POS = [0, 3]
 B_PRIME_POS = [2, 3]
 DISCOUNT = 0.9
 
-# left, up, right, down
 ACTIONS = [np.array([0, -1]),
            np.array([-1, 0]),
            np.array([0, 1]),
@@ -28,7 +27,7 @@ ACTIONS = [np.array([0, -1]),
 ACTIONS_FIGS=[ '←', '↑', '→', '↓']
 
 
-ACTION_PROB = 0.25
+ACTION_PROBABILITY = 0.25
 
 
 def step(state, action):
@@ -134,7 +133,7 @@ def figure_3_2():
                 for action in ACTIONS:
                     (next_i, next_j), reward = step([i, j], action)
                     # bellman equation
-                    new_value[i, j] += ACTION_PROB * (reward + DISCOUNT * value[next_i, next_j])
+                    new_value[i, j] += ACTION_PROBABILITY * (reward + DISCOUNT * value[next_i, next_j])
         if np.sum(np.abs(value - new_value)) < 1e-4:
             draw_image(np.round(new_value, decimals=2))
             plt.savefig('../images/figure_3_2.png')
@@ -157,8 +156,8 @@ def figure_3_2_linear_system():
                 s_, r = step(s, a)
                 index_s_ = np.ravel_multi_index(s_, (WORLD_SIZE, WORLD_SIZE))
 
-                A[index_s, index_s_] += ACTION_PROB * DISCOUNT
-                b[index_s] -= ACTION_PROB * r
+                A[index_s, index_s_] += ACTION_PROBABILITY * DISCOUNT
+                b[index_s] -= ACTION_PROBABILITY * r
 
     x = np.linalg.solve(A, b)
     draw_image(np.round(x.reshape(WORLD_SIZE, WORLD_SIZE), decimals=2))
